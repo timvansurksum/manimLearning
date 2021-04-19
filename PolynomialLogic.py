@@ -5,11 +5,11 @@ import numpy as np
 class polynomial1(Scene):
   def construct(self):
     text = Text("""
-wat betekend het voor
+    wat betekend het voor
 
-een 2de graads functie om 2 
+    een 2de graads functie om 2 
 
-nulpunten te hebben""")
+    nulpunten te hebben""")
     text.scale(1)
     
     # self.play(Write(text, run_time=3))
@@ -17,7 +17,18 @@ nulpunten te hebben""")
     # self.play(FadeOut(text, run_time=2))
 
     axes = Axes((self.y_min, self.y_max), (self.x_min, self.x_max))
-
+    1
+    dotR = Dot(color=RED)
+    dotL = Dot(color=YELLOW)
+    dotC = Dot(color=GREEN)
+    dotU = Dot(color=PINK)
+    dotD = Dot(color=BLUE)
+    dotR.move_to(np.array((1,0,0)))
+    dotL.move_to(np.array((-1,0,0)))   
+    dotC.move_to(np.array((0,0,0)))
+    dotU.move_to(np.array((0,1,0)))
+    dotD.move_to(np.array((0,-1,0)))
+    self.add(dotR, dotL, dotC, dotU, dotD)
     self.play(Write(axes, lag_ratio=0.01, run_time=1))
     
     polynomial_graph = axes.get_graph(
@@ -38,7 +49,7 @@ nulpunten te hebben""")
     self.add(Rectange)
     
     
-    braceU = always_redraw(Brace, Rectange, UP)
+    braceD = always_redraw(Brace, Rectange, UP)
     textU, numberU = labelU = VGroup(
     Text("(x - 2) = "),
     DecimalNumber(
@@ -49,10 +60,10 @@ nulpunten te hebben""")
         )
     )
     numberU.scale(0.5)
-    braceU.scale(0.5)
+    braceD.scale(0.5)
     labelU.scale(0.5)
 
-    always(labelU.next_to, braceU, UP)
+    always(labelU.next_to, braceD, UP)
     f_always(numberU.set_value, Rectange.get_width)
     labelU.arrange(RIGHT)
 
@@ -77,7 +88,7 @@ nulpunten te hebben""")
     f_always(numberR.set_value, Rectange.get_height)
 
 
-    self.add(braceU, labelU, braceR, labelR)
+    self.add(braceD, labelU, braceR, labelR)
     self.wait()
     
     
@@ -133,14 +144,15 @@ class SecondPoly1(polynomial1):
 class polynomial2(Scene):
   def construct(self):
     text = Text("""
-wat betekend het voor
 
-een 2de graads functie om 2 
+    wat betekend het voor
 
-nulpunten te hebben""")
+    een 2de graads functie om 2 
+
+    nulpunten te hebben""")
     text.scale(1)
     
-    # self.play(Write(text, run_time=3))
+    #self.play(Write(text, run_time=3))
     # self.wait(3)
     # self.play(FadeOut(text, run_time=2))
     dotR = Dot(color=RED)
@@ -150,41 +162,45 @@ nulpunten te hebben""")
     dotD = Dot(color=BLUE)
     dotR.move_to(np.array((1,0,0)))
     dotL.move_to(np.array((-1,0,0)))   
-    dotF = Dot(color=PINK)
-    dotB = Dot(color=BLUE)
-    dotF.move_to(np.array((0,0,1)))
-    dotB.move_to(np.array((0,0,-1)))
     dotC.move_to(np.array((0,0,0)))
     dotU.move_to(np.array((0,1,0)))
     dotD.move_to(np.array((0,-1,0)))
     self.add(dotR, dotL, dotC, dotU, dotD)
 
     axes = Axes((self.y_min, self.y_max), (self.x_min, self.x_max))
-    axes.add_coordinate_labels()
-    axes.shift(np.array((-1.5, 1, 0)))
-    axes.scale(0.75)
+    axes.add_coordinate_labels(
 
+    )
+    axes.shift(np.array((-2, -1, 0)))
+    axes.scale(0.75)
     self.play(Write(axes, lag_ratio=0.01, run_time=1))
+    
+    #y = (x-2)(x+1)
+    text = Tex("(x - 2)(x + 1) = y", fill_color=BLUE)
+    text.shift(np.array((-3.5, 3, 0.)))
+    self.play(Write(text, run_time=1))
+    
+    
     
     polynomial_graph = axes.get_graph(
     lambda x: x**2 - x - 2,
     color=BLUE
     )
-    polynomial_label = axes.get_graph_label(polynomial_graph, Tex("(x - 2)(x + 1)", direction=LEFT, x=0))
+
+    #polynomial_label = axes.get_graph_label(polynomial_graph, label=Tex("(x - 2)(x + 1)", direction=RIGHT))
     
     self.play(
     ShowCreation(polynomial_graph, run_time=2))
-    self.play(FadeIn(polynomial_label, LEFT, run_time=0.5))
     Rectange = Square(side_length= 0.5)
     Rectange.set_fill(BLUE_E, 1)
     
     self.add(Rectange)
-    Rectange.shift(np.array((2, 0, 0.)))
+    Rectange.shift(np.array((2, 1, 0.)))
     
     
     
-    braceU = always_redraw(Brace, Rectange, UP)
-    textU, numberU = labelU = VGroup(
+    braceD = always_redraw(Brace, Rectange, DOWN)
+    textD, numberD = labelD = VGroup(
     Text("(x - 2) = "),
     DecimalNumber(
         0,
@@ -193,13 +209,13 @@ nulpunten te hebben""")
         include_sign=True,
         )
     )
-    numberU.scale(0.5)
-    braceU.scale(0.5)
-    labelU.scale(0.5)
+    numberD.scale(0.5)
+    braceD.scale(0.5)
+    labelD.scale(0.5)
 
-    always(labelU.next_to, braceU, UP)
-    f_always(numberU.set_value, Rectange.get_width)
-    labelU.arrange(RIGHT)
+    always(labelD.next_to, braceD, DOWN)
+    f_always(numberD.set_value, Rectange.get_width)
+    labelD.arrange(RIGHT)
 
 
     braceR = always_redraw(Brace, Rectange, RIGHT)
@@ -208,7 +224,7 @@ nulpunten te hebben""")
     DecimalNumber(
         0,
         show_ellipsis=True,
-        num_decimal_places=4,
+        num_decimal_places=2,
         include_sign=True,
     )
     )
@@ -222,7 +238,7 @@ nulpunten te hebben""")
     f_always(numberR.set_value, Rectange.get_height)
 
 
-    self.add(braceU, labelU, braceR, labelR)
+    self.add(braceD, labelD, braceR, labelR)
     self.wait()
     
 
@@ -235,6 +251,8 @@ nulpunten te hebben""")
     dot.move_to,
     lambda: axes.i2gp(x_tracker.get_value(), polynomial_graph)
     )
+
+
     scale_factor = [-PI/2, 5/2, 0]
     scale_factor1 = [-(2/PI), -2/5, 0]
     self.play(
@@ -279,50 +297,62 @@ class SecondPoly2(polynomial2):
 class polynomial3(Scene):
   def construct(self):
     text = Text("""
-wat betekend het voor
 
-een 2de graads functie om 2 
+    wat betekend het voor
 
-nulpunten te hebben""")
+    een 2de graads functie om 2 
+
+    nulpunten te hebben""")
     text.scale(1)
     
-    # self.play(Write(text, run_time=3))
+    #self.play(Write(text, run_time=3))
     # self.wait(3)
     # self.play(FadeOut(text, run_time=2))
+    dotR = Dot(color=RED)
+    dotL = Dot(color=YELLOW)
+    dotC = Dot(color=GREEN)
+    dotU = Dot(color=PINK)
+    dotD = Dot(color=BLUE)
+    dotR.move_to(np.array((1,0,0)))
+    dotL.move_to(np.array((-1,0,0)))   
+    dotC.move_to(np.array((0,0,0)))
+    dotU.move_to(np.array((0,1,0)))
+    dotD.move_to(np.array((0,-1,0)))
+    self.add(dotR, dotL, dotC, dotU, dotD)
 
     axes = Axes((self.y_min, self.y_max), (self.x_min, self.x_max))
-    axes.add_coordinate_labels()
+    axes.add_coordinate_labels(
 
+    )
+    axes.shift(np.array((-2, -1, 0)))
+    axes.scale(0.75)
     self.play(Write(axes, lag_ratio=0.01, run_time=1))
+    
+    
     
     polynomial_graph = axes.get_graph(
     lambda x: x**2 - x - 2,
     color=BLUE
     )
-    polynomial_label = axes.get_graph_label(polynomial_graph, Tex("(x - 2)(x + 1)", direction=LEFT))
-    
-    self.play(
-    ShowCreation(polynomial_graph, run_time=2))
-    self.play(FadeIn(polynomial_label, LEFT, run_time=0.5))
 
+    self.play(ShowCreation(polynomial_graph, run_time=2))
 
+    dot = Dot(color=RED)
+    dot.move_to(axes.i2gp(2, polynomial_graph))
+    self.play(FadeIn(dot, scale=1))
 
+    polynomial_label = Tex("(x - 2)(x + 1)", fill_color=GREEN).add_updater(lambda m: m.next_to(dot, UP))
 
-    # self.play(FadeOut(dot, run_time=0.2))
-    # self.play(FadeOut(polynomial_label, run_time=0.2))
-    # self.play(FadeOut(polynomial_graph, run_time=0.2))
-    # self.play(FadeOut(axes, run_time=0.2))
-    # self.wait()
-
+    self.play(Write(polynomial_label, run_time=2))
     Rectange = Square(side_length= 0.5)
     Rectange.set_fill(BLUE_E, 1)
-
-    Rectange.shift(np.array((-4, 2., 0.)))
+    
     self.add(Rectange)
+    Rectange.shift(np.array((2, 1, 0.)))
     
-    
-    braceU = always_redraw(Brace, Rectange, UP)
-    textU, numberU = labelU = VGroup(
+
+    braceD = always_redraw(Brace, Rectange, DOWN)
+    textD, numberD = labelD = VGroup(
     Text("(x - 2) = "),
     DecimalNumber(
         0,
@@ -331,13 +361,13 @@ nulpunten te hebben""")
         include_sign=True,
         )
     )
-    numberU.scale(0.5)
-    braceU.scale(0.5)
-    labelU.scale(0.5)
+    numberD.scale(0.5)
+    braceD.scale(0.5)
+    labelD.scale(0.5)
 
-    always(labelU.next_to, braceU, UP)
-    f_always(numberU.set_value, Rectange.get_width)
-    labelU.arrange(RIGHT)
+    always(labelD.next_to, braceD, DOWN)
+    f_always(numberD.set_value, Rectange.get_width)
+    labelD.arrange(RIGHT)
 
 
     braceR = always_redraw(Brace, Rectange, RIGHT)
@@ -346,7 +376,7 @@ nulpunten te hebben""")
     DecimalNumber(
         0,
         show_ellipsis=True,
-        num_decimal_places=4,
+        num_decimal_places=2,
         include_sign=True,
     )
     )
@@ -360,14 +390,10 @@ nulpunten te hebben""")
     f_always(numberR.set_value, Rectange.get_height)
 
 
-    self.add(braceU, labelU, braceR, labelR)
+    self.add(braceD, labelD, braceR, labelR)
     self.wait()
-    
-    
-    dot = Dot(color=RED)
-    dot.move_to(axes.i2gp(2, polynomial_graph))
-    self.play(FadeIn(dot, scale=1))
-    
+
+
     x_tracker = ValueTracker(2)
     f_always(
     dot.move_to,
