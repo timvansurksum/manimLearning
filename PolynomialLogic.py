@@ -124,7 +124,7 @@ class polynomial3(Scene):
     x = x_tracker.get_value()
     y = x**2 - x - 2
     scale_factor1 = [x, y, 0]
-    f_always(Rectange.animate.scale(scale_factor1))
+    f_always(Rectange.scale(scale_factor1))
 
     self.play(x_tracker.animate.set_value(-1), run_time=1.5)
     self.wait(1)
